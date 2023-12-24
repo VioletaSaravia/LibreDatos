@@ -1,0 +1,51 @@
+﻿services:
+  productosapi:
+    image: productosapi
+    build:
+      context: .
+      dockerfile: ProductosAPI/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+  
+  webapp:
+    image: webapp
+    build:
+      context: .
+      dockerfile: WebApp/Dockerfile
+  
+  scraper:
+    image: scraper
+    build:
+      context: .
+      dockerfile: Scraper/Dockerfile
+
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: <YourStrong@Passw0rd>
+      MSSQL_NAME: sql_server
+      MSSQL_HOSTNAME: sql_server
+    ports:
+      - "1433:1433"
+    container_name: sql_server
+    hostname: sql_server
+  
+  cassandra:
+    image: cassandra
+    environment:
+      CASSANDRA_NAME: cassandra
+      CASSANDRA_HOSTNAME: cassandra
+    ports:
+      - "7000"
+      - "7001"
+      - "7199"
+      - "9042"
+      - "9160"
+    networks:
+      - cassandra-network
+
+networks:
+  cassandra-network:
+    driver: bridge

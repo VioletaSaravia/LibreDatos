@@ -1,0 +1,60 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  productosapi:
+    build:
+      context: "/home/violeta/Trabajo/LibreDatos"
+      dockerfile: "ProductosAPI/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/ProductosAPI.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "productosapi:dev"
+    ports: []
+    volumes:
+    - "/home/violeta/.nuget/packages:/home/app/.nuget/packages"
+    - "/home/violeta/Trabajo/LibreDatos/ProductosAPI:/app:rw"
+    - "/home/violeta/Trabajo/LibreDatos:/src:rw"
+    working_dir: "/app"
+  scraper:
+    build:
+      context: "/home/violeta/Trabajo/LibreDatos"
+      dockerfile: "Scraper/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/Scraper.dll"
+    environment:
+      DOTNET_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "scraper:dev"
+    ports: []
+    volumes:
+    - "/home/violeta/.nuget/packages:/home/app/.nuget/packages"
+    - "/home/violeta/Trabajo/LibreDatos/Scraper:/app:rw"
+    - "/home/violeta/Trabajo/LibreDatos:/src:rw"
+    working_dir: "/app"
+  webapp:
+    build:
+      context: "/home/violeta/Trabajo/LibreDatos"
+      dockerfile: "WebApp/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/WebApp.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_STATICWEBASSETS: "/app/bin/Debug/net8.0/WebApp.staticwebassets.runtime.CT.json"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "webapp:dev"
+    ports: []
+    volumes:
+    - "/home/violeta/.nuget/packages:/home/app/.nuget/packages"
+    - "/home/violeta/Trabajo/LibreDatos/WebApp:/app:rw"
+    - "/home/violeta/Trabajo/LibreDatos:/src:rw"
+    working_dir: "/app"
